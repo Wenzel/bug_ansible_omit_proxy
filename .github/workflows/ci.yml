@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test_failure:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+
+      - name: Test bug reproducibility
+        run: |
+          python3 -m venv venv
+          venv/bin/pip install -r requirements.txt
+          venv/bin/ansible-playbook -i 'localhost,' -c local site.yml -vvvvvvvv

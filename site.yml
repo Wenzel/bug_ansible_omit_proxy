@@ -1,0 +1,18 @@
+- hosts: all
+  environment:
+    # set proxy according to proxy_env from group_vars, if defined
+    http_proxy: "{{ proxy_env.http_proxy | default(omit) }}"
+    https_proxy: "{{ proxy_env.https_proxy | default(omit) }}"
+
+  tasks:
+    # this should display that https_proxy is not defined
+    - name: Display proxy settings
+      debug:
+        var: environment.https_proxy
+
+    # this fails because of DNS resolution failure
+    # in fact, the http_proxy is omit_placeholder_xxxx
+    - name: download file
+      get_url:
+        url: https://github.com/microsoft/vscode/archive/refs/tags/1.67.2.tar.gz
+        dest: "{{ playbook_dir }}/vscode.tar.gz"
