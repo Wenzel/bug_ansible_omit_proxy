@@ -1,8 +1,8 @@
 - hosts: all
   environment:
     # set proxy according to proxy_env from group_vars, if defined
-    http_proxy: "{{ proxy_env.http_proxy | default(omit) }}"
-    https_proxy: "{{ proxy_env.https_proxy | default(omit) }}"
+    http_proxy: "{{ proxy_env.http_proxy | default(lookup('env', 'HTTP_PROXY')) }}"
+    https_proxy: "{{ proxy_env.https_proxy | default(lookup('env', 'HTTPS_PROXY')) }}"
 
   tasks:
     # this should display that https_proxy is not defined

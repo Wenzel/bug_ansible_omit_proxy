@@ -1,5 +1,5 @@
 proxy_env:
   # set your proxy here.
   # or keep these variables undefined
-  # http_proxy: 
-  # https_proxy: 
+  # http_proxy: ""
+  # https_proxy: "" 
